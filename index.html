@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism & Palette</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            background: linear-gradient(130deg, black, purple, pink);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+        }
+        #background-svg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .floating-svg {
+            position: absolute;
+            opacity: 0.3;
+            animation: float-animation 10s infinite alternate;
+        }
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #splash-text {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            text-align: center;
+            text-shadow: 0 0 15px pink;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+        #home-page {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 10px 20px;
+            margin: 0 10px;
+            letter-spacing: 1.5px;
+        }
+        .menu a:hover {
+            color: pink;
+            transform: scale(1.1);
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: pink;
+            text-shadow: 0 0 10px rgba(255,192,203,0.5);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="background-svg-container"></div>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div id="splash-text">Prism & Palette</div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-page">
+        <div class="navbar">
+            <div class="menu">
+                <a href="tips.html">Random Makeup Tips</a>
+                <a href="randomhehe.html">Random Makeup Products</a>
+                <a href="lipisticku.html">Lipstick Color Picker</a>
+                <a href="moodyyy.html">FAQs</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-box">
+                <h1>Discover Your Glamour</h1>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to create heart SVG
+        function createHeartSVG() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+            svg.classList.add('floating-svg');
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M50 30 Q75 10, 90 25 Q100 40, 90 55 Q75 70, 50 80 Q25 70, 10 55 Q0 40, 10 25 Q25 10, 50 30 Z");
+            path.setAttribute("fill", "rgba(255,192,203,0.5)"); // Soft pink with transparency
+            
+            svg.appendChild(path);
+            return svg;
+        }
+
+        // Populate background with floating hearts
+        function populateBackground() {
+            const container = document.getElementById('background-svg-container');
+            const numHearts = 25;
+
+            for (let i = 0; i < numHearts; i++) {
+                const svg = createHeartSVG();
+                
+                // Random positioning
+                svg.style.left = `${Math.random() * 100}%`;
+                svg.style.top = `${Math.random() * 100}%`;
+                
+                // Random size variation
+                const scale = 0.5 + Math.random();
+                svg.style.transform = `scale(${scale})`;
+                
+                // Random animation delay and duration
+                svg.style.animationDelay = `${Math.random() * 5}s`;
+                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+                container.appendChild(svg);
+            }
+        }
+
+        // Splash screen and background logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            const homePage = document.getElementById('home-page');
+
+            // Populate background
+            populateBackground();
+
+            // Show splash screen for 3 seconds
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                homePage.style.display = 'flex';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
