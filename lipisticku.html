@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lipstick Color Picker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background:linear-gradient(13deg,purple,pink,white,pink,purple);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background:linear-gradient(130deg,pink,white,pink);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        button {
+            background:linear-gradient(130deg,purple,pink);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #8d4e87;
+        }
+        .color-display {
+            margin-top: 15px;
+            padding: 20px;
+            border: 2px solid #6b5b95;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .floating-svg {
+            position: absolute;
+            opacity: 0.3;
+            animation: float-animation 10s infinite alternate;
+        }
+
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Lipstick Color Picker</h1>
+    <div class="container">
+        <button onclick="generateRandomColor()">Generate Color</button>
+        <div id="colorDisplay" class="color-display">Color Name</div>
+    </div>
+
+    <script>
+        function createHeartSVG() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+            svg.classList.add('floating-svg');
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M50 30 Q75 10, 90 25 Q100 40, 90 55 Q75 70, 50 80 Q25 70, 10 55 Q0 40, 10 25 Q25 10, 50 30 Z");
+            path.setAttribute("fill", "rgba(255,192,203,0.5)"); // Soft pink with transparency
+
+            svg.appendChild(path);
+            return svg;
+        }
+
+        // Populate background with floating hearts
+        function populateBackground() {
+            const numHearts = 25;
+
+            for (let i = 0; i < numHearts; i++) {
+                const svg = createHeartSVG();
+                svg.style.left = `${Math.random() * 100}%`;
+                svg.style.top = `${Math.random() * 100}%`;
+                svg.style.transform = `scale(${0.5 + Math.random()})`;
+                svg.style.animationDelay = `${Math.random() * 5}s`;
+                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+                document.body.appendChild(svg);
+            }
+        }
+        // Array of lipstick colors with name and hex value
+        const lipstickColors = [
+            { name: "Cherry Red", color: "#FF0000" },
+            { name: "Pink Bliss", color: "#FFC0CB" },
+            { name: "Berry Purple", color: "#800080" },
+            { name: "Peachy Coral", color: "#FF7F50" },
+            { name: "Nude Beige", color: "#D6A89A" },
+            { name: "Deep Plum", color: "#4B0082" },
+            { name: "Scarlet", color: "#FF2400" },
+            { name: "Soft Rose", color: "#F4C2C2" },
+            { name: "Brick Red", color: "#B22222" },
+            { name: "Violet", color: "#8A2BE2" }
+        ];
+
+        function generateRandomColor() {
+            // Get a random index from the array
+            const randomIndex = Math.floor(Math.random() * lipstickColors.length);
+            const selectedColor = lipstickColors[randomIndex];
+
+            // Display the color name and change the background color
+            const colorDisplay = document.getElementById('colorDisplay');
+            colorDisplay.textContent = `${selectedColor.name}`;
+            colorDisplay.style.backgroundColor = selectedColor.color;
+            colorDisplay.style.color = (selectedColor.color === '#FFC0CB' || selectedColor.color === '#F4C2C2') ? 'black' : 'white';
+        }
+        populateBackground();
+    </script>
+</body>
+</html>
