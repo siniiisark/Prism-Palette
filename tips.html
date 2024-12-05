@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Makeup Tip Generator</title>
+    <style>
+       
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(130deg, purple, pink,black);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #5d1049;
+            text-shadow: 2px 2px #ffccf9;
+        }
+
+        .tip-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .tip {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #ff85a1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e77390;
+        }
+
+        button:active {
+            background-color: #d8607d;
+            transform: scale(0.98);
+        }
+
+        .floating-svg {
+            position: absolute;
+            opacity: 0.3;
+            animation: float-animation 10s infinite alternate;
+        }
+
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }  
+    </style>
+</head>
+<body>
+    <h1>Random Makeup Tip Generator</h1>
+    <div class="tip-container">
+        <p class="tip">Click the button to get a random makeup tip!</p>
+        <button onclick="showRandomTip()">Generate a Tip</button>
+    </div>
+
+   
+
+    <script>
+        function createHeartSVG() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+            svg.classList.add('floating-svg');
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M50 30 Q75 10, 90 25 Q100 40, 90 55 Q75 70, 50 80 Q25 70, 10 55 Q0 40, 10 25 Q25 10, 50 30 Z");
+            path.setAttribute("fill", "rgba(255,192,203,0.5)"); // Soft pink with transparency
+
+            svg.appendChild(path);
+            return svg;
+        }
+
+        // Populate background with floating hearts
+        function populateBackground() {
+            const numHearts = 25;
+
+            for (let i = 0; i < numHearts; i++) {
+                const svg = createHeartSVG();
+                svg.style.left = `${Math.random() * 100}%`;
+                svg.style.top = `${Math.random() * 100}%`;
+                svg.style.transform = `scale(${0.5 + Math.random()})`;
+                svg.style.animationDelay = `${Math.random() * 5}s`;
+                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+                document.body.appendChild(svg);
+            }
+        }
+        const tips = [
+            "Always start with a clean and moisturized face for flawless makeup.",
+            "Use a primer to make your makeup last longer and look smoother.",
+            "Choose a foundation that matches your skin tone perfectly.",
+            "Blend, blend, blend! Seamless blending is key to a natural look.",
+            "Set your makeup with a translucent powder to avoid creasing.",
+            "Use a damp sponge for applying foundation for a dewy finish.",
+            "Apply highlighter to your cheekbones, brow bones, and nose tip for a glowing look.",
+            "Don't forget to clean your makeup brushes regularly to prevent breakouts.",
+            "Line your lips before applying lipstick for a more defined look.",
+            "Curl your lashes before applying mascara for extra volume.",
+            "Experiment with bold eyeshadow colors to create unique looks.",
+            "Use a setting spray to lock your makeup in place all day.",
+            "Apply concealer in a triangle shape under your eyes for a lifted look.",
+            "Use a spoolie to brush through your brows for a natural finish.",
+            "Don't skip sunscreen, even under makeup, to protect your skin."
+        ];
+
+        function showRandomTip() {
+            const tipElement = document.querySelector('.tip');
+            const randomIndex = Math.floor(Math.random() * tips.length);
+            tipElement.textContent = tips[randomIndex];
+        }
+        populateBackground();
+    </script>
+</body>
+</html>
