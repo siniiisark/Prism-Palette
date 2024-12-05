@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs Section</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, rgb(188, 36, 61),white,purple);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .faq-container {
+            width: 100%;
+            height:1000px;
+            max-width: 700px;
+            background: linear-gradient(13deg, rgb(188, 36, 61),white,pink);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        .faq-question {
+            background: linear-gradient(130deg,#f97cd9,white,#f97cd9);
+            color: black;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .faq-question:hover {
+            background:linear-gradient(130deg,pink,white,pink);
+            transform: translateY(-2px);
+        }
+        .faq-answer {
+            display: none;
+            padding: 12px;
+            background: linear-gradient(130deg,#f97cd9,white,#f97cd9);
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: #333;
+            font-size: 14px;
+        }
+        .faq-answer:hover{
+            background:linear-gradient(130deg,pink,white,pink);
+            transform: translateY(-2px);
+
+        }
+        .floating-svg {
+            position: absolute;
+            opacity: 0.3;
+            animation: float-animation 10s infinite alternate;
+        }
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">FAQs</h2>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">What is this FAQ section about?</div>
+            <div class="faq-answer">This section is designed to help users find answers to common questions.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">How does this FAQ section work?</div>
+            <div class="faq-answer">Click on any question to see the answer. Click again to hide it.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">Can I sleep with my makeup on?</div>
+            <div class="faq-answer">Umm...bruh this will obviously not be good for your skin...so avoid doing so...hehe..</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">Is sunscreen important?</div>
+            <div class="faq-answer">Repeat after me: YES!
+                <p>LOUDER!!!!!!</p><p>YESSSSSSSSSS!!!!!!</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">What kind of jewellery will suit with my makeup?</div>
+            <div class="faq-answer">Darling, that totally depends on what kind of makeup you are putting on.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">Are lipsticks bad for our lips?</div>
+            <div class="faq-answer">Totally depends on the formulation.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">Will I become more beautiful after putting on makeup?</div>
+            <div class="faq-answer">Oh Darling, you are already beautiful. Makeup just enhances it.</div>
+        </div>
+    </div>
+    <script>
+        function createHeartSVG() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+            svg.classList.add('floating-svg');
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M50 30 Q75 10, 90 25 Q100 40, 90 55 Q75 70, 50 80 Q25 70, 10 55 Q0 40, 10 25 Q25 10, 50 30 Z");
+            path.setAttribute("fill", "rgba(255,192,203,0.5)"); // Soft pink with transparency
+            
+            svg.appendChild(path);
+            return svg;
+        }
+
+        // Populate background with floating hearts
+        function populateBackground() {
+            const container = document.getElementById('background-svg-container');
+            const numHearts = 25;
+
+            for (let i = 0; i < numHearts; i++) {
+                const svg = createHeartSVG();
+                
+                // Random positioning
+                svg.style.left = `${Math.random() * 100}%`;
+                svg.style.top = `${Math.random() * 100}%`;
+                
+                // Random size variation
+                const scale = 0.5 + Math.random();
+                svg.style.transform = `scale(${scale})`;
+                
+                // Random animation delay and duration
+                svg.style.animationDelay = `${Math.random() * 5}s`;
+                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+                container.appendChild(svg);
+            }
+        }
+
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+            } else {
+                answer.style.display = 'block';
+            }
+        }
+        populateBackground();
+
+    </script>
+</body>
+</html>
