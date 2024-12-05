@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Makeup Product Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(130deg, white, purple);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #5d1049;
+            text-shadow: 2px 2px #ffccf9;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        button {
+            background-color: #b85fb4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4b3e66;
+        }
+
+        .product-info {
+            font-size: 1rem;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .floating-svg {
+            position: absolute;
+            opacity: 0.3;
+            animation: float-animation 10s infinite alternate;
+        }
+
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-50px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Makeup Product Generator</h1>
+    <div class="container">
+        <p id="productInfo" class="product-info">Click the button to get a random makeup product and know its use!</p>
+        <button onclick="generateRandomProduct()">Show Product</button>
+    </div>
+
+    <script>
+        // Function to create a heart SVG
+        function createHeartSVG() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+            svg.classList.add('floating-svg');
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M50 30 Q75 10, 90 25 Q100 40, 90 55 Q75 70, 50 80 Q25 70, 10 55 Q0 40, 10 25 Q25 10, 50 30 Z");
+            path.setAttribute("fill", "rgba(255,192,203,0.5)"); // Soft pink with transparency
+
+            svg.appendChild(path);
+            return svg;
+        }
+
+        // Populate background with floating hearts
+        function populateBackground() {
+            const numHearts = 25;
+
+            for (let i = 0; i < numHearts; i++) {
+                const svg = createHeartSVG();
+                svg.style.left = `${Math.random() * 100}%`;
+                svg.style.top = `${Math.random() * 100}%`;
+                svg.style.transform = `scale(${0.5 + Math.random()})`;
+                svg.style.animationDelay = `${Math.random() * 5}s`;
+                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+                document.body.appendChild(svg);
+            }
+        }
+
+        // Array of makeup products and their uses
+        const products = [
+            { name: "Lipstick", use: "Apply to your lips for color and definition." },
+            { name: "Mascara", use: "Use to lengthen and darken eyelashes." },
+            { name: "Foundation", use: "Apply to your face to create an even skin tone." },
+            { name: "Blush", use: "Apply to the cheeks for a healthy, flushed look." },
+            { name: "Eyeliner", use: "Use to define the eyes and enhance your look." },
+            { name: "Highlighter", use: "Apply to high points of your face to add a glow." },
+            { name: "Concealer", use: "Use to cover blemishes and brighten the under-eye area." },
+            { name: "Eyeshadow", use: "Apply to eyelids for color and dimension." },
+            { name: "Bronzer", use: "Use to add warmth and contour to the face." },
+            { name: "Lip Gloss", use: "Apply for a shiny finish and added moisture to the lips." }
+        ];
+
+        function generateRandomProduct() {
+            const randomIndex = Math.floor(Math.random() * products.length);
+            const product = products[randomIndex];
+            document.getElementById('productInfo').textContent = `${product.name}: ${product.use}`;
+        }
+
+        // Initialize floating hearts
+        populateBackground();
+    </script>
+</body>
+</html>
