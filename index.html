@@ -135,12 +135,11 @@
         <div id="splash-text">Prism & Palette</div>
     </div>
 
-    <!-- Home Page -->
-    <div id="home-page">
+<div id="home-page">
         <div class="navbar">
             <div class="menu">
-                <a href="tips.html">Random Makeup Tips</a>
-                <a href="randomhehe.html">Random Makeup Products</a>
+                <a href="tips.html">Random Makeup Tips Generator</a>
+                <a href="randomhehe.html">Random Makeup Product Generator</a>
                 <a href="lipisticku.html">Lipstick Color Picker</a>
                 <a href="moodyyy.html">FAQs</a>
             </div>
@@ -154,7 +153,6 @@
     </div>
 
     <script>
-        // Function to create heart SVG
         function createHeartSVG() {
             const svgNS = "http://www.w3.org/2000/svg";
             const svg = document.createElementNS(svgNS, "svg");
@@ -170,33 +168,29 @@
             return svg;
         }
 
-        // Populate background with floating hearts
+       
         function populateBackground() {
             const container = document.getElementById('background-svg-container');
             const numHearts = 25;
 
             for (let i = 0; i < numHearts; i++) {
                 const svg = createHeartSVG();
-                
-                // Random positioning
                 svg.style.left = `${Math.random() * 100}%`;
                 svg.style.top = `${Math.random() * 100}%`;
                 
-                // Random size variation
                 const scale = 0.5 + Math.random();
                 svg.style.transform = `scale(${scale})`;
                 
-                // Random animation delay and duration
-                svg.style.animationDelay = `${Math.random() * 5}s`;
-                svg.style.animationDuration = `${10 + Math.random() * 5}s`;
+        
+      svg.style.animationDelay = `${Math.random() * 5}s`;
+         svg.style.animationDuration = `${10 + Math.random() * 5}s`;
 
                 container.appendChild(svg);
             }
         }
 
-        // Splash screen and background logic
         document.addEventListener('DOMContentLoaded', () => {
-            const splashScreen = document.getElementById('splash-screen');
+          const splashScreen = document.getElementById('splash-screen');
             const homePage = document.getElementById('home-page');
 
             // Populate background
